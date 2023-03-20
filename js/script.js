@@ -157,9 +157,8 @@ function play (e) {
             }
         }
     }
-
+    //Counter dei click per decretare quando ho vinto
     let winCounter = 0
-
     function clickSquares() {
 
         //Se al click contiene una bomba...
@@ -216,7 +215,23 @@ function play (e) {
     }
     //AGGIUNGO IL CLICK AI QUADRATI
     for(let i = 0; i < allSquares.length; i++){
-        
         allSquares[i].addEventListener("click", clickSquares)
+        allSquares[i].addEventListener("contextmenu", function(e){
+            e.preventDefault();
+            if (!allSquares[i].classList.contains("question")  && !allSquares[i].classList.contains("flag")){
+                allSquares[i].classList.add("flag");
+            }
+
+            else if (allSquares[i].classList.contains("flag")) {
+                allSquares[i].classList.remove("flag");
+                allSquares[i].classList.add("question");
+            }
+            else {
+                allSquares[i].classList.remove("question");
+            }
+            return false;
+        }, false);
+        
+
     }
 }

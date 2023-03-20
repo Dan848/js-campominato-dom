@@ -40,6 +40,20 @@ header, footer {
     z-index: 2;
 }
 
+.hide.flag::after{
+    font-family: 'Font Awesome 6 Free' ;
+    content: "\f024";
+    color: white;
+    z-index: 3;
+}
+
+.hide.question::after{
+font-family: 'Font Awesome 6 Free' ;
+content: "\3f";
+color: white;
+z-index: 3;
+}
+
 .bomb {
     background-color: #a52a2a;
     box-shadow: inset 0 0 15px 3px #721d1d;
