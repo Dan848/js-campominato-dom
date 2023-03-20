@@ -1,0 +1,52 @@
+main {
+    height: calc(100vh - 160px);
+}
+
+header, footer {
+    height: 80px;
+}
+
+#playBoard {
+    height: 500px;
+    width: 500px;
+    border: 1px solid white;
+}
+
+.square {
+    height: calc(100% / var(--squareSide));
+    width: calc(100% / var(--squareSide));
+    background-color: #6f00ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    position: relative;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.hide::after {
+    content: "" ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #29a551;
+    box-shadow: inset 0 0 15px 3px #1c7237;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.bomb {
+    background-color: #a52a2a;
+    box-shadow: inset 0 0 15px 3px #721d1d;
+    color: black;
+}
+
+.num {
+    background-color: #4729a5;
+    box-shadow: inset 0 0 15px 3px #311c72;
+}
