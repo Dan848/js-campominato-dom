@@ -70,6 +70,7 @@ function play (e) {
     let gameStatus = 0;
     //Prendo il valore del livello selezionato
     const level = document.getElementById("levelSelect").value;
+    //Resetto il testo
     const printScore = document.getElementById("score");
     printScore.classList.remove("bg-success", "bg-warning", "text-black");
     printScore.innerText = "Partita in Corso...";
@@ -79,6 +80,7 @@ function play (e) {
 
     //Aggancio l'elemento del DOM #playBoard...
     const playBoard = document.getElementById("playBoard");
+    playBoard.classList.add("board")
     //...lo svuoto prima di inserire altri elementi
     playBoard.innerHTML = "";
 
@@ -170,7 +172,8 @@ function play (e) {
                 }
             }
             gameStatus = 1;
-            return printScore.innerHTML = `HAI PERSO! il tuo punteggio è ${winCounter} celle scoperte`;
+            printScore.classList.add("bg-danger")
+            return printScore.innerHTML = `HAI PERSO! Il tuo punteggio è ${winCounter} celle scoperte`;
         }
 
         //Se al click contiene un numero...
@@ -208,7 +211,7 @@ function play (e) {
         if (winCounter == ((squareSide*squareSide) - numBombs)){
             gameStatus = 1;
             printScore.classList.add("win");
-            return printScore.innerHTML = `HAI VINTO! il tuo punteggio è ${winCounter} celle scoperte`;
+            return printScore.innerHTML = `HAI VINTO! Il tuo punteggio è ${winCounter} celle scoperte`;
         }
     }
     //AGGIUNGO IL CLICK AI QUADRATI
