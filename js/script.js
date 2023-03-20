@@ -71,7 +71,8 @@ function play (e) {
     //Prendo il valore del livello selezionato
     const level = document.getElementById("levelSelect").value;
     const printScore = document.getElementById("score");
-    printScore.innerText = "Partita in Corso"
+    printScore.classList.remove("bg-success", "bg-warning", "text-black");
+    printScore.innerText = "Partita in Corso...";
 
     //Numero di bombe
     const numBombs = 16;
@@ -155,46 +156,64 @@ function play (e) {
         }
     }
 
+    let winCounter = 0
+
+    function clickSquares() {
+
+        //Se al click contiene una bomba...
+        if(this.classList.contains("bomb") && gameStatus === 0){
+            //...cerca ogni bomba e rendila visibile
+            for (let j = 0; j < allSquares.length; j++){
+
+                if (allSquares[j].classList.contains("bomb")) {
+                allSquares[j].classList.remove("hide");
+                }
+            }
+            gameStatus = 1;
+            return printScore.innerHTML = `HAI PERSO! il tuo punteggio è ${winCounter} celle scoperte`;
+        }
+
+        //Se al click contiene un numero...
+        else if (this.classList.contains("num") && gameStatus === 0){
+            //...rendilo visibile e basta
+            this.classList.remove("hide");
+            winCounter++;
+            this.removeEventListener("click", clickSquares);
+            console.log(winCounter);
+        }    
+
+        //Se al click contiene una cella vuota...
+        else if (!this.classList.contains("num") && !this.classList.contains("bomb") && gameStatus === 0){
+            //...rendila visibile
+            this.classList.remove("hide");
+            winCounter++;
+            this.removeEventListener("click", clickSquares);
+            //...crea un array con le celle attorno
+            const around = checkAround(this);
+                //Per ogni cella attorno...
+            for (let j = 0; j < around.length; j++) {
+                //...se esiste ed è vuota simula un click...
+                if (around[j] && !around[j].classList.contains("bomb") && !around[j].classList.contains("num")){
+                    around[j].click();
+                }
+                //... se esiste e non è vuota rendila visibile
+                else if (around[j])
+                around[j].click()
+                // around[j].classList.remove("hide");
+                // winCounter++;
+                // this.removeEventListener("click", clickSquares);
+            }
+        }
+
+        if (winCounter == ((squareSide*squareSide) - numBombs)){
+            gameStatus = 1;
+            printScore.classList.add("win");
+            return printScore.innerHTML = `HAI VINTO! il tuo punteggio è ${winCounter} celle scoperte`;
+        }
+    }
     //AGGIUNGO IL CLICK AI QUADRATI
     for(let i = 0; i < allSquares.length; i++){
-        allSquares[i].addEventListener("click", function () {
-
-            //Se al click contiene una bomba...
-            if(allSquares[i].classList.contains("bomb") && gameStatus === 0){
-                //...cerca ogni bomba e rendila visibile
-                for (let j = 0; j < allSquares.length; j++){
-
-                    if (allSquares[j].classList.contains("bomb")) {
-                    allSquares[j].classList.remove("hide");
-                    }
-                }
-                gameStatus = 1;
-                return printScore.innerText = "HAI PERSO!"
-            }
-
-            //Se al click contiene un numero...
-            else if (allSquares[i].classList.contains("num") && gameStatus === 0){
-                //...rendilo visibile e basta
-                allSquares[i].classList.remove("hide");
-            }    
-
-            //Se al click contiene una cella vuota...
-            else if (!allSquares[i].classList.contains("num") && !allSquares[i].classList.contains("bomb") && gameStatus === 0){
-                //...rendila visibile
-                allSquares[i].classList.remove("hide");
-                //...crea un array con le celle attorno
-                const around = checkAround(allSquares[i]);
-                    //Per ogni cella attorno...
-                for (let j = 0; j < around.length; j++) {
-                    //...se esiste ed è vuota simula un click...
-                    if (around[j] && !around[j].classList.contains("bomb") && !around[j].classList.contains("num")){
-                        around[j].click();
-                    }
-                    //... se esiste e non è vuota rendila visibile
-                    else if (around[j])
-                    around[j].classList.remove("hide");
-                }
-            }
-        })
+        
+        allSquares[i].addEventListener("click", clickSquares)
     }
 }

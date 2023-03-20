@@ -10,6 +10,7 @@ header, footer {
     height: 500px;
     width: 500px;
     border: 1px solid white;
+    position: relative;
 }
 
 .square {
@@ -49,4 +50,19 @@ header, footer {
 .num {
     background-color: #4729a5;
     box-shadow: inset 0 0 15px 3px #311c72;
+}
+
+.win{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-250px) translatey(-140px);
+    width: 500px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffca2c;
+    color: black;
+    z-index: 10;
 }
