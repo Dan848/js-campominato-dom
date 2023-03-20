@@ -72,7 +72,7 @@ function play (e) {
     const level = document.getElementById("levelSelect").value;
     //Resetto il testo
     const printScore = document.getElementById("score");
-    printScore.classList.remove("bg-success", "bg-warning", "text-black");
+    printScore.classList.remove("bg-success", "bg-warning", "bg-danger", "text-black", "win");
     printScore.innerText = "Partita in Corso...";
 
     //Numero di bombe
